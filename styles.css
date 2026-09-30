@@ -1,0 +1,205 @@
+/* Variables de colores exactas de la HU-01 */
+:root {
+    --bg-blue: #DDECF8;
+    --accent-green-light: #74D353;
+    --accent-orange: #FF924D;
+    --btn-green-dark: #008A23;
+    --text-navy: #032B69;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-blue);
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.classroom-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Estilos de Tarjetas Generales (Cards) */
+.card {
+    background-color: var(--white);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Encabezado Superior */
+.header-card {
+    background-color: var(--white);
+    border-radius: 24px;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.btn-volver {
+    background-color: var(--btn-green-dark);
+    color: var(--text-navy);
+    font-weight: 800; /* Extra Bold */
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px; /* Pill shaped */
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.session-title {
+    color: var(--text-navy);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Contenido Principal (Layout 2 columnas) */
+.main-content {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Panel Lateral Izquierdo */
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 320px;
+}
+
+.module-title {
+    color: var(--btn-green-dark);
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.users-module {
+    flex: 0.3;
+}
+
+#user-list {
+    list-style: none;
+    color: var(--text-navy);
+}
+
+.chat-module {
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    background-color: var(--bg-blue);
+    border-radius: 16px;
+    flex: 1;
+    padding: 15px;
+    margin-bottom: 15px;
+    overflow-y: auto;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 10px;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+}
+
+#btn-send {
+    background-color: var(--btn-green-dark);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+/* Pizarra Interactiva */
+.whiteboard-module {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.whiteboard-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.whiteboard-title {
+    color: var(--text-navy);
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.decorations {
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent-green-light);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); /* Forma de estrella básica */
+}
+
+.canvas-container {
+    background-color: var(--bg-blue);
+    border-radius: 24px;
+    flex: 1;
+    width: 100%;
+}
+
+/* Barra Flotante Inferior */
+.bottom-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.control-btn {
+    background-color: var(--white);
+    color: var(--text-navy);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mic-btn, .cam-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Circulares */
+}
+
+.screen-btn {
+    width: 60px;
+    height: 50px;
+    border-radius: 15px; /* Rectangular redondeado */
+}

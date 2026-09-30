@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala Virtual - CEAnzus</title>
+    <!-- Aquí conectamos el diseño visual -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="classroom-container">
+        
+        <!-- Encabezado Superior -->
+        <header class="header-card">
+            <button id="btn-volver" class="btn-volver">VOLVER</button>
+            <h1 class="session-title">MATEMÁTICAS 4° | SESIÓN 1</h1>
+        </header>
+
+        <div class="main-content">
+            <!-- Panel Lateral Izquierdo (Usuarios y Chat) -->
+            <aside class="side-panel">
+                <div class="users-module card">
+                    <h2 class="module-title">LISTA DE USUARIOS</h2>
+                    <ul id="user-list">
+                        <!-- La lista se llenará dinámicamente -->
+                        <li>Omar (Tú)</li>
+                    </ul>
+                </div>
+                
+                <div class="chat-module card">
+                    <h2 class="module-title">CHAT</h2>
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Los mensajes irán aquí -->
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
+                        <button id="btn-send">Enviar</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Contenedor Central (Pizarra Interactiva) -->
+            <main class="whiteboard-module card">
+                <div class="whiteboard-header">
+                    <!-- Decoraciones que agregaremos por CSS -->
+                    <div class="decorations"></div>
+                    <h2 class="whiteboard-title">PIZARRA INTERACTIVA</h2>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="interactive-canvas"></canvas>
+                </div>
+            </main>
+        </div>
+
+        <!-- Barra de Controles Flotante Inferior -->
+        <footer class="bottom-bar">
+            <button class="control-btn mic-btn" title="Micrófono">🎤</button>
+            <button class="control-btn cam-btn" title="Cámara de Video">📷</button>
+            <button class="control-btn screen-btn" title="Compartir Pantalla">💻</button>
+        </footer>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
