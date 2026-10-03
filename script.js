@@ -1,59 +1,104 @@
-// Seleccionamos el botón de volver usando su ID
-const btnVolver = document.getElementById('btn-volver');
+// --- HU-02: Capa Anti-Screen Security (RN04) ---
+function inicializarAntiScreenSecurity() {
+    const overlay = document.createElement('div');
+    overlay.id = 'watermark-overlay';
+    document.body.appendChild(overlay);
+}
+inicializarAntiScreenSecurity();
 
-// Agregamos el evento de clic al botón
-btnVolver.addEventListener('click', () => {
-    // RN01: Modal de confirmación de salida
-    const confirmarSalida = confirm("¿Estás seguro de que deseas salir de la sesión actual?");
+// --- HU-02: Controles Multimedia Locales (RN02 / RN03) ---
+const btnMic = document.getElementById('btn-mic');
+const btnCam = document.getElementById('btn-cam');
 
-    if (confirmarSalida) {
-        // Si el alumno acepta salir
-        alert("Saliendo de la clase... (Simulación de redirección)");
-    } else {
-        // Si el alumno cancela, se queda en la sala
-        console.log("Salida cancelada por el alumno.");
-    }
-});
-// --- Lógica del Chat (Escenario 2) ---
-const chatInput = document.getElementById('chat-input');
-const btnSend = document.getElementById('btn-send');
-const chatMessages = document.getElementById('chat-messages');
+let localStreamMic = null;
+let localStreamCam = null;
 
-btnSend.addEventListener('click', () => {
-    // La función .trim() elimina los espacios en blanco al inicio y al final
-    const mensaje = chatInput.value.trim(); 
+if (btnMic) {
+    let micActivo = false;
+    btnMic.addEventListener('click', async () => {
+        try {
+            if (!micActivo) {
+                localStreamMic = await navigator.mediaDevices.getUserMedia({ audio: true });
+                micActivo = true;
+                btnMic.style.backgroundColor = '#74D353'; // Verde
+            } else {
+                if (localStreamMic) localStreamMic.getAudioTracks().forEach(track => track.stop());
+                micActivo = false;
+                btnMic.style.backgroundColor = 'white';
+            }
+        } catch (error) {
+            alert("No se pudo acceder al micrófono.");
+        }
+    });
+}
 
-    // Validación: Si está vacío tras quitar los espacios, bloqueamos el envío
-    if (mensaje === "") {
-        console.log("Envío bloqueado: El mensaje está vacío.");
-        return; 
-    }
+if (btnCam) {
+    let camActiva = false;
+    btnCam.addEventListener('click', async () => {
+        try {
+            if (!camActiva) {
+                localStreamCam = await navigator.mediaDevices.getUserMedia({ video: true });
+                camActiva = true;
+                btnCam.style.backgroundColor = '#74D353'; // Verde
+            } else {
+                if (localStreamCam) localStreamCam.getVideoTracks().forEach(track => track.stop());
+                camActiva = false;
+                btnCam.style.backgroundColor = 'white';
+            }
+        } catch (error) {
+            alert("No se pudo acceder a la cámara.");
+        }
+    });
+}
 
-    // Si el texto es válido, creamos el globo del mensaje
-    const nuevoMensaje = document.createElement('div');
-    
-    // Le aplicamos el diseño estilo "píldora" verde que pide la HU-01
-    nuevoMensaje.style.backgroundColor = 'var(--btn-green-dark)';
-    nuevoMensaje.style.color = 'white';
-    nuevoMensaje.style.padding = '8px 15px';
-    nuevoMensaje.style.borderRadius = '20px';
-    nuevoMensaje.style.marginBottom = '10px';
-    nuevoMensaje.style.display = 'inline-block';
-    nuevoMensaje.textContent = mensaje;
+// --- HU-01: Funciones Anteriores (Volver y Chat) ---
 
-    // Metemos el globo de texto al área del chat
-    chatMessages.appendChild(nuevoMensaje);
+// Botón Volver
+const btnVolver = document.querySelector('.btn-volver');
+if (btnVolver) {
+    btnVolver.addEventListener('click', () => {
+        const confirmar = confirm("¿Estás seguro de salir de la sesión?");
+        if (confirmar) {
+            console.log("Saliendo de la sesión...");
+            // Aquí puedes agregar la redirección si tienes otra página: window.location.href = 'inicio.html';
+        }
+    });
+}
 
-    // Limpiamos la caja de texto para escribir el siguiente
-    chatInput.value = "";
-    
-    // Forzamos el scroll hacia abajo para ver siempre el mensaje más reciente
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-});
+// Lógica del Chat
+const btnEnviar = document.querySelector('.btn-enviar');
+const chatInput = document.querySelector('.chat-input-area input');
+const chatBox = document.querySelectorAll('.caja-gris')[0]; // Selecciona la primera caja gris (la del chat)
 
-// Truco extra: Permitir que se envíe también al presionar la tecla "Enter"
-chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        btnSend.click();
-    }
-});
+if (btnEnviar && chatInput && chatBox) {
+    // Configurar la caja para que los mensajes se vean bien
+    chatBox.style.overflowY = 'auto';
+    chatBox.style.padding = '15px';
+    chatBox.style.display = 'flex';
+    chatBox.style.flexDirection = 'column';
+    chatBox.style.gap = '10px';
+
+    btnEnviar.addEventListener('click', () => {
+        const mensaje = chatInput.value.trim();
+        if (mensaje !== "") {
+            const msgElement = document.createElement('div');
+            msgElement.textContent = "Tú: " + mensaje;
+            msgElement.style.backgroundColor = "#e6eff5";
+            msgElement.style.padding = "10px 15px";
+            msgElement.style.borderRadius = "15px";
+            msgElement.style.color = "#003366";
+            msgElement.style.alignSelf = "flex-end";
+            
+            chatBox.appendChild(msgElement);
+            chatInput.value = ""; // Limpiar el input
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll hacia abajo
+        }
+    });
+
+    // Permitir enviar el mensaje con la tecla Enter
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            btnEnviar.click();
+        }
+    });
+}
