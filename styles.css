@@ -1,11 +1,9 @@
-/* Variables de colores exactas de la HU-01 */
 :root {
-    --bg-blue: #DDECF8;
-    --accent-green-light: #74D353;
-    --accent-orange: #FF924D;
-    --btn-green-dark: #008A23;
-    --text-navy: #032B69;
-    --white: #FFFFFF;
+    --bg-light: #e6eff5;
+    --card-bg: #ffffff;
+    --verde-primario: #008f39;
+    --azul-texto: #003366;
+    --gris-caja: #d9e2ec;
 }
 
 * {
@@ -16,204 +14,131 @@
 }
 
 body {
-    background-color: var(--bg-blue);
+    background-color: var(--bg-light);
     height: 100vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
-.classroom-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-/* Estilos de Tarjetas Generales (Cards) */
-.card {
-    background-color: var(--white);
-    border-radius: 24px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-/* Encabezado Superior */
-.header-card {
-    background-color: var(--white);
-    border-radius: 24px;
+.header {
+    background-color: var(--card-bg);
+    border-radius: 20px;
     padding: 15px 30px;
     display: flex;
     align-items: center;
     gap: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .btn-volver {
-    background-color: var(--btn-green-dark);
-    color: var(--text-navy);
-    font-weight: 800; /* Extra Bold */
+    background-color: var(--verde-primario);
+    color: white;
     border: none;
+    border-radius: 20px;
     padding: 10px 25px;
-    border-radius: 50px; /* Pill shaped */
+    font-weight: bold;
     cursor: pointer;
-    font-size: 14px;
 }
 
-.session-title {
-    color: var(--text-navy);
-    font-weight: bold;
-    font-size: 20px;
+.titulo-sesion {
+    color: var(--azul-texto);
+    font-size: 1.2rem;
 }
 
-/* Contenido Principal (Layout 2 columnas) */
-.main-content {
+.main-container {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex: 1;
-    overflow: hidden;
 }
 
-/* Panel Lateral Izquierdo */
-.side-panel {
+.sidebar {
+    width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 320px;
+    gap: 15px;
 }
 
-.module-title {
-    color: var(--btn-green-dark);
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 15px;
+.card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
 
-.users-module {
-    flex: 0.3;
+.flex-grow { flex: 1; display: flex; }
+.flex-col { flex-direction: column; }
+
+.chat-container {
+    gap: 10px;
 }
 
-#user-list {
-    list-style: none;
-    color: var(--text-navy);
-}
-
-.chat-module {
-    flex: 0.7;
-    display: flex;
-    flex-direction: column;
-}
-
-.chat-messages {
-    background-color: var(--bg-blue);
-    border-radius: 16px;
-    flex: 1;
+.caja-gris {
+    background-color: var(--gris-caja);
+    border-radius: 15px;
     padding: 15px;
-    margin-bottom: 15px;
     overflow-y: auto;
 }
 
 .chat-input-area {
     display: flex;
-    gap: 10px;
+    gap: 0px; /* Pegados */
+    height: 40px; /* Altura normal para el input */
 }
 
-#chat-input {
-    flex: 1;
-    padding: 10px;
+.chat-input {
+    flex-grow: 1;
     border: 1px solid #ccc;
-    border-radius: 16px;
+    border-radius: 20px 0 0 20px;
+    padding: 0 15px;
+    outline: none;
 }
 
-#btn-send {
-    background-color: var(--btn-green-dark);
+.btn-enviar {
+    background-color: var(--verde-primario);
     color: white;
     border: none;
-    border-radius: 16px;
-    padding: 0 15px;
+    border-radius: 0 20px 20px 0;
+    width: 60px; /* Ancho fijo para "Env" */
+    font-weight: bold;
     cursor: pointer;
 }
 
-/* Pizarra Interactiva */
-.whiteboard-module {
+.pizarra-container {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    position: relative;
 }
 
-.whiteboard-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.whiteboard-title {
-    color: var(--text-navy);
-    font-weight: bold;
-    font-size: 18px;
-    margin-left: 10px;
-}
-
-.decorations {
-    width: 20px;
-    height: 20px;
-    background-color: var(--accent-green-light);
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); /* Forma de estrella básica */
-}
-
-.canvas-container {
-    background-color: var(--bg-blue);
-    border-radius: 24px;
-    flex: 1;
-    width: 100%;
-}
-
-/* Barra Flotante Inferior */
-.bottom-bar {
+.controles {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 10px;
+    padding: 5px 0;
 }
 
 .control-btn {
-    background-color: var(--white);
-    color: var(--text-navy);
+    width: 50px; height: 50px;
+    border-radius: 50%;
     border: none;
-    font-size: 20px;
+    background-color: white;
+    font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-.mic-btn, .cam-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%; /* Circulares */
-}
-
-.screen-btn {
-    width: 60px;
-    height: 50px;
-    border-radius: 15px; /* Rectangular redondeado */
-}
-/* --- HU-02: Capa Anti-Screen (Marca de Agua de Seguridad) --- */
+/* --- Capa de Seguridad Anti-Screen --- */
 #watermark-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 9999; /* Siempre por encima de todo */
-    pointer-events: none; /* Crucial: Permite hacer clics a través de la marca de agua */
-    
-    /* Patrón repetido en mosaico a -45 grados con opacidad de seguridad al 12% */
-    background-image: url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' font-size='18' font-family='Arial, sans-serif' fill='rgba(0, 0, 0, 0.12)' transform='rotate(-45 150 150)' text-anchor='middle'%3EOmar L. - SESION123 - 29/09%3E%3C/svg%3E");
-    background-repeat: repeat;
+    z-index: 9999;
+    pointer-events: none; /* Esto evita que bloquee tus clics en los botones o el chat */
+    background: repeating-linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, 0.03),
+        rgba(0, 0, 0, 0.03) 40px,
+        rgba(0, 0, 0, 0.07) 40px,
+        rgba(0, 0, 0, 0.07) 80px
+    );
 }
