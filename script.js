@@ -114,3 +114,105 @@ async function cargarGrabaciones() {
 
 // Ejecutamos la función inmediatamente al cargar la vista
 cargarGrabaciones();
+
+
+// --- Lógica de Botones de Control Inferiores ---
+const btnMic = document.getElementById('btnMic'); 
+const btnCam = document.getElementById('btnCam'); 
+
+// Variables para guardar los permisos y apagar el hardware después
+let streamMic = null;
+let streamCam = null;
+
+if (btnMic) {
+    btnMic.addEventListener('click', async function() {
+        // Si el micrófono ya está prendido, lo apagamos
+        if (streamMic) {
+            streamMic.getTracks().forEach(track => track.stop());
+            streamMic = null;
+            this.style.backgroundColor = ''; // Regresa a color original
+            this.style.color = '';
+        } else {
+            // Si está apagado, pedimos permiso al navegador
+            try {
+                streamMic = await navigator.mediaDevices.getUserMedia({ audio: true });
+                this.style.backgroundColor = 'red'; // Se pinta rojo indicando "En Vivo"
+                this.style.color = 'white';
+            } catch (error) {
+                console.error('Error al acceder al micrófono:', error);
+                alert('Se requiere permiso para usar el micrófono.');
+            }
+        }
+    });
+}
+
+if (btnCam) {
+    btnCam.addEventListener('click', async function() {
+        // Si la cámara ya está prendida, la apagamos
+        if (streamCam) {
+            streamCam.getTracks().forEach(track => track.stop());
+            streamCam = null;
+            this.style.backgroundColor = ''; 
+            this.style.color = '';
+        } else {
+            // Si está apagada, pedimos permiso de video
+            try {
+                streamCam = await navigator.mediaDevices.getUserMedia({ video: true });
+                this.style.backgroundColor = 'red'; 
+                this.style.color = 'white';
+            } catch (error) {
+                console.error('Error al acceder a la cámara:', error);
+                alert('Se requiere permiso para usar la cámara.');
+            }
+        }
+    });
+}
+// --- Lógica de Pizarra Interactiva (HU-04) ---
+const canvas = document.getElementById('pizarraLienzo');
+const ctx = canvas.getContext('2d');
+
+// Inicializar Socket.IO en el cliente
+const socket = io();
+
+let dibujando = false;
+
+// Configuración visual del trazo
+ctx.lineWidth = 3;
+ctx.lineCap = 'round';
+ctx.strokeStyle = '#032B69'; // Color azul marino
+// --- Eventos de Dibujo Local y Emisión ---
+canvas.addEventListener('mousedown', (e) => {
+    dibujando = true;
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+    // Avisar al servidor que empezamos a trazar
+    socket.emit('iniciar_trazo', { x: e.offsetX, y: e.offsetY });
+});
+
+canvas.addEventListener('mousemove', (e) => {
+    if (!dibujando) return;
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    // Enviar coordenadas continuas al servidor
+    socket.emit('dibujar', { x: e.offsetX, y: e.offsetY });
+});
+
+canvas.addEventListener('mouseup', () => {
+    dibujando = false;
+    ctx.closePath();
+});
+
+canvas.addEventListener('mouseout', () => {
+    dibujando = false;
+});
+
+// --- Recibir Trazos de Otros Usuarios ---
+socket.on('iniciar_trazo', (datos) => {
+    ctx.beginPath();
+    ctx.moveTo(datos.x, datos.y);
+});
+
+socket.on('dibujar', (datos) => {
+    ctx.lineTo(datos.x, datos.y);
+    ctx.stroke();
+});

@@ -55,19 +55,23 @@
                     <h2 class="whiteboard-title">PIZARRA INTERACTIVA</h2>
                 </div>
                 <div class="canvas-container">
-                    <canvas id="interactive-canvas"></canvas>
+                  <canvas id="pizarraLienzo" width="800" height="400" style="background-color: #DDECF8; border-radius: 24px; cursor: crosshair;"></canvas>
                 </div>
             </main>
         </div>
 
         <!-- Barra de Controles Flotante Inferior -->
-        <footer class="bottom-bar">
-            <button class="control-btn mic-btn" title="Micrófono">🎤</button>
-            <button class="control-btn cam-btn" title="Cámara de Video">📷</button>
-            <button class="control-btn screen-btn" title="Compartir Pantalla">💻</button>
-        </footer>
+       <footer class="bottom-bar">
+        <button id="btnMic" class="control-btn mic-btn" title="Micrófono">🎤</button>
+        <button id="btnCam" class="control-btn cam-btn" title="Cámara de Video">📷</button>
+        <button id="btnScreen" class="control-btn screen-btn" title="Compartir Pantalla">💻</button>
+    </footer>
 
     </div>
+ <!-- Primero cargamos la librería de WebSockets -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Luego cargamos tu código que usa esa librería -->
     <script src="script.js"></script>
+</body>
 </body>
 </html>
