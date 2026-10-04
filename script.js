@@ -57,3 +57,60 @@ chatInput.addEventListener('keypress', (e) => {
         btnSend.click();
     }
 });
+// Función para cargar y mostrar las grabaciones de la HU-03
+async function cargarGrabaciones() {
+    try {
+        const response = await fetch('/api/recordings');
+        const resultado = await response.json();
+
+        if (resultado.success) {
+            console.log("Grabaciones obtenidas con éxito:", resultado.data);
+            // Aquí puedes mapear los datos para pintarlos en tu HTML cuando gustes
+        } else {
+            console.error("El servidor indicó un fallo al traer las grabaciones.");
+        }
+    } catch (error) {
+        console.error("Error de conexión al intentar obtener las grabaciones:", error);
+    }
+}
+
+// Ejecutamos la función al cargar la vista si es necesario
+// cargarGrabaciones();// Función para cargar y mostrar las grabaciones de la HU-03 en el HTML
+async function cargarGrabaciones() {
+    const listContainer = document.getElementById('recordings-list');
+    
+    // Validamos que el contenedor exista en la vista antes de intentar llenarlo
+    if (!listContainer) return; 
+
+    try {
+        const response = await fetch('/api/recordings');
+        const resultado = await response.json();
+
+        // Limpiamos el mensaje de "Cargando grabaciones..."
+        listContainer.innerHTML = '';
+
+        if (resultado.success && resultado.data.length > 0) {
+            // Mapeamos los datos y creamos un elemento 'li' por cada grabación
+            resultado.data.forEach(grabacion => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="recording-item">
+                        <strong>${grabacion.name}</strong> - ${grabacion.date}
+                        <br>
+                        <a href="${grabacion.url}" target="_blank">▶ Ver Grabación</a>
+                    </div>
+                `;
+                listContainer.appendChild(li);
+            });
+        } else {
+            // Si el arreglo viene vacío (como pasa ahorita), mostramos un mensaje amigable
+            listContainer.innerHTML = '<p class="empty-message">Aún no hay grabaciones disponibles para esta sesión.</p>';
+        }
+    } catch (error) {
+        console.error("Error de conexión al intentar obtener las grabaciones:", error);
+        listContainer.innerHTML = '<p class="empty-message" style="color: red;">Error al cargar las grabaciones.</p>';
+    }
+}
+
+// Ejecutamos la función inmediatamente al cargar la vista
+cargarGrabaciones();
