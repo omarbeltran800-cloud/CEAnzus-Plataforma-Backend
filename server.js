@@ -4,6 +4,8 @@ const axios = require('axios');
 const xml2js = require('xml2js');
 require('dotenv').config();
 
+const recordingController = require('./controllers/recordingController');
+
 const app = express();
 app.use(express.json());
 
@@ -27,6 +29,9 @@ app.get('/api/room/join', (req, res) => {
     res.json({ url: joinUrl });
 });
 
+// Endpoint para obtener las grabaciones (HU-03)
+app.get('/api/recordings', recordingController.getRecordings);
+app.use(express.static('.'));
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Backend CEAnzus corriendo en el puerto ${process.env.PORT || 3000}`);
 });
