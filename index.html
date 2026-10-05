@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sala Virtual - CEAnzus</title>
-    <!-- Aquí conectamos el diseño visual -->
+ 
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="classroom-container">
         
-        <!-- Encabezado Superior -->
+  
         <header class="header-card">
             <button id="btn-volver" class="btn-volver">VOLVER</button>
             <h1 class="session-title">MATEMÁTICAS 4° | SESIÓN 1</h1>
         </header>
 
         <div class="main-content">
-            <!-- Panel Lateral Izquierdo (Usuarios y Chat) -->
-             <!-- Módulo de Grabaciones (HU-03) -->
+           
 <div class="recordings-module card">
     <h2 class="module-title">GRABACIONES DE CLASES</h2>
     <ul id="recordings-list" class="recordings-list">
-        <!-- Las grabaciones se cargarán dinámicamente desde el backend -->
+       
         <p class="empty-message">Cargando grabaciones...</p>
     </ul>
 </div>
@@ -30,7 +29,7 @@
                 <div class="users-module card">
                     <h2 class="module-title">LISTA DE USUARIOS</h2>
                     <ul id="user-list">
-                        <!-- La lista se llenará dinámicamente -->
+                      
                         <li>Omar (Tú)</li>
                     </ul>
                 </div>
@@ -38,7 +37,7 @@
                 <div class="chat-module card">
                     <h2 class="module-title">CHAT</h2>
                     <div class="chat-messages" id="chat-messages">
-                        <!-- Los mensajes irán aquí -->
+                  
                     </div>
                     <div class="chat-input-area">
                         <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
@@ -47,10 +46,10 @@
                 </div>
             </aside>
 
-            <!-- Contenedor Central (Pizarra Interactiva) -->
+          
             <main class="whiteboard-module card">
                 <div class="whiteboard-header">
-                    <!-- Decoraciones que agregaremos por CSS -->
+                    
                     <div class="decorations"></div>
                     <h2 class="whiteboard-title">PIZARRA INTERACTIVA</h2>
                 </div>
@@ -60,7 +59,7 @@
             </main>
         </div>
 
-        <!-- Barra de Controles Flotante Inferior -->
+       
        <footer class="bottom-bar">
         <button id="btnMic" class="control-btn mic-btn" title="Micrófono">🎤</button>
         <button id="btnCam" class="control-btn cam-btn" title="Cámara de Video">📷</button>
@@ -68,9 +67,9 @@
     </footer>
 
     </div>
- <!-- Primero cargamos la librería de WebSockets -->
+
     <script src="/socket.io/socket.io.js"></script>
-    <!-- Luego cargamos tu código que usa esa librería -->
+
     <script src="script.js"></script>
 </body>
 </body>
